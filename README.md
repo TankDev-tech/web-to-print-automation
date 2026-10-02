@@ -1,31 +1,79 @@
 # Web-to-Print Production Automation
 
-A custom web-to-print production system developed by [TankDev](https://tankdev.tech), connecting browser-based product customization, order management, and desktop production workflows in a single system.
+A custom web-to-print production system developed by [TankDev](https://tankdev.tech), connecting browser-based product customization, order management, desktop production software, and Adobe Illustrator-based print production in a single workflow.
 
-The platform transforms customer-created designs into structured production data and connects the web ordering experience directly with Adobe Illustrator-based print production.
+The system transforms customer-created designs into structured production data and carries that data from the browser to production-ready output.
 
-## Overview
+## System at a Glance
 
-Traditional online ordering does not necessarily automate print production.
+**Customer Design → Order → Production Management → Desktop Production → Adobe Illustrator → Print-Ready Output**
 
-Design information, product dimensions, customer preferences, and production files are often handled across separate systems, creating repeated data entry and manual file preparation.
+The platform combines:
 
-This system connects the complete workflow:
+- Browser-based product personalization
+- A custom design editor with 200+ premium SVG assets
+- Centralized order and production management
+- Structured transfer of design and production data
+- Dedicated desktop production software
+- Adobe Illustrator-based production workflow
+- AI, PDF, and PNG output generation
 
-**Web Design → Order → Admin → Desktop Production → Adobe Illustrator → Print-Ready Output**
+## Browser-Based Design
 
-## What the System Does
+Customers can select print products and personalize them directly in the browser.
 
-Customers can follow two controlled design workflows:
+![Product catalog](assets/product-catalog.png)
 
-- Personalize predefined print products directly in the browser
-- Create original designs using typography, layout tools, and 200+ premium SVG assets
+Two controlled design workflows are supported:
+
+1. Personalization of predefined print products
+2. Original design creation using typography, layout tools, and 200+ SVG assets
 
 Product dimensions and production constraints are defined by the printing business rather than by the customer.
 
-When an order is completed, the product configuration, dimensions, customer selections, and design data are stored as a single structured order record.
+### Design Editor
 
-The approved design can then be transferred to the desktop production application and processed through an Adobe Illustrator workflow to generate production-ready files.
+![Browser-based design editor](assets/design-editor.png)
+
+The editor keeps customer-facing design activity connected to the same structured product and order model used by the production workflow.
+
+### Design Preview
+
+![Design preview](assets/design-preview.png)
+
+The resulting design can be reviewed before it proceeds through the order and production workflow.
+
+## Order & Production Management
+
+When an order is completed, product configuration, dimensions, customer selections, and design data remain connected through a structured order record.
+
+![Production administration dashboard](assets/admin-dashboard.png)
+
+The administrative interface provides a centralized point for managing orders and the information required by the downstream production process.
+
+### Order Details
+
+![Order details](assets/order-details.png)
+
+Individual production jobs retain the information required to move from the web workflow into the production environment.
+
+## Desktop Production & Adobe Illustrator
+
+Approved jobs can be transferred into the dedicated desktop production workflow.
+
+![Desktop production and Adobe Illustrator workflow](assets/illustrator-production.png)
+
+The production application connects structured order and design data with the Adobe Illustrator-based production process, reducing the need to manually reconstruct customer designs during file preparation.
+
+### Print-Ready Output
+
+![Print-ready production output](assets/print-ready-output.png)
+
+The workflow supports production output in:
+
+- AI
+- PDF
+- PNG
 
 ## Production Workflow
 
@@ -33,11 +81,13 @@ The approved design can then be transferred to the desktop production applicatio
 Customer
    │
    ▼
-Next.js Web Application
+Product Catalog
    │
-   ├── Product Catalog
-   ├── Live Personalization
-   └── Custom Design Editor
+   ▼
+Browser Design & Personalization
+   │
+   ▼
+Order
    │
    ▼
 FastAPI Service Layer
@@ -45,13 +95,8 @@ FastAPI Service Layer
    ▼
 PostgreSQL
    │
-   ├── Products
-   ├── Dimensions
-   ├── Designs
-   └── Orders
-   │
    ▼
-Admin Panel
+Admin & Production Management
    │
    ▼
 Desktop Production Application
@@ -140,7 +185,7 @@ The system combines web, API, relational data, administrative, and desktop produ
 
 ## System Scope
 
-The implemented system currently includes:
+The implemented system includes:
 
 - **200+** premium SVG design assets
 - **2** customer design workflows
@@ -166,12 +211,10 @@ Sensitive production rules, transformation logic, infrastructure configuration, 
 
 ## Documentation
 
-Detailed public documentation will be maintained in this repository as the technical showcase evolves.
+More detailed technical documentation is available in this repository:
 
-- Architecture documentation
-- Production workflow
-- System boundaries
-- Public screenshots and diagrams
+- [System Architecture](docs/architecture.md)
+- [Production Workflow](docs/workflow.md)
 
 ## Case Study
 
@@ -185,11 +228,13 @@ A product-oriented overview of the system and its capabilities is also available
 
 **[Explore the Print Production Automation System](https://tankdev.tech/tr/systems/print-production-automation)**
 
-## Source Code
+## Public Documentation Boundary
 
-This repository contains public technical documentation for a proprietary TankDev system.
+This repository is a public technical showcase of a proprietary TankDev system.
 
-Production source code, credentials, infrastructure configuration, client data, sensitive production rules, and proprietary transformation logic are not included.
+It documents the system architecture, production workflow, interface, and implemented capabilities without exposing production source code.
+
+Production source code, credentials, infrastructure configuration, customer data, sensitive production rules, and proprietary transformation logic are not included.
 
 ## About TankDev
 
