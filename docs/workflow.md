@@ -4,7 +4,7 @@ This document describes the public operational workflow of the **Web-to-Print Pr
 
 The workflow connects customer-facing product design with administrative review and desktop print production while preserving the relationship between product configuration, design data, order information, and production output.
 
-> This document describes the workflow at a public system level. Proprietary transformation logic, production source code, credentials, client data, and security-sensitive implementation details are intentionally excluded.
+> This document describes the workflow at a public system level. Proprietary transformation logic, production source code, credentials, customer data, and security-sensitive implementation details are intentionally excluded.
 
 ## Workflow Overview
 
@@ -46,6 +46,10 @@ Adobe Illustrator
 AI / PDF / PNG
 </pre>
 
+The public workflow can be followed visually from the customer-facing application through the administrative and production environments.
+
+---
+
 ## Stage 1 — Product Selection
 
 The workflow begins with a product configured by the printing business.
@@ -54,10 +58,14 @@ Each product can carry production-related information such as dimensions and des
 
 The customer selects a product without directly controlling the underlying production configuration.
 
+![Product catalog](../assets/product-catalog.png)
+
 **Input:** Product catalog  
 **Process:** Product selection  
 **Output:** Selected product with defined production parameters  
 **Responsibility:** Customer / Web Application
+
+---
 
 ## Stage 2 — Design Path Selection
 
@@ -75,10 +83,22 @@ The customer creates an original composition using available design functionalit
 
 Both paths ultimately produce design data associated with the selected product.
 
+![Browser-based design editor](../assets/design-editor.png)
+
 **Input:** Selected product  
 **Process:** Personalization or custom design  
 **Output:** Product-associated design data  
 **Responsibility:** Customer / Web Application
+
+### Design Preview
+
+The resulting design can be reviewed within the customer-facing workflow before proceeding to order processing.
+
+![Design preview](../assets/design-preview.png)
+
+The preview represents the customer-facing state of the design before it enters the downstream administrative and production workflow.
+
+---
 
 ## Stage 3 — Validation
 
@@ -92,6 +112,8 @@ Production-sensitive validation rules are not documented publicly.
 **Process:** Required-data validation  
 **Output:** Validated order input  
 **Responsibility:** Application Layer
+
+---
 
 ## Stage 4 — Order Creation
 
@@ -119,6 +141,8 @@ This shared identity allows later administrative and production stages to work w
 **Output:** Persistent order record  
 **Responsibility:** FastAPI / PostgreSQL
 
+---
+
 ## Stage 5 — Central Data Storage
 
 Order information is persisted in PostgreSQL.
@@ -140,6 +164,8 @@ This reduces the need to reconstruct production context from disconnected files 
 **Output:** Centrally accessible production data  
 **Responsibility:** PostgreSQL
 
+---
+
 ## Stage 6 — Administrative Review
 
 The administrative interface provides operational visibility over incoming orders and production-related information.
@@ -148,10 +174,22 @@ The printing business can manage the workflow from a separate interface without 
 
 The administrative stage acts as the operational boundary between order intake and production.
 
+![Production administration dashboard](../assets/admin-dashboard.png)
+
+### Order-Level Production Context
+
+Individual orders retain the information required by the downstream workflow.
+
+![Order details](../assets/order-details.png)
+
+This allows administrative and production operations to work from the same logical order rather than reconstructing production context from separate records.
+
 **Input:** Stored order and design information  
 **Process:** Administrative review and workflow control  
 **Output:** Order ready for production processing  
 **Responsibility:** Administrative Interface
+
+---
 
 ## Stage 7 — Production Transfer
 
@@ -176,11 +214,17 @@ The desktop application acts as an explicit integration boundary rather than pla
 **Output:** Production-ready job data  
 **Responsibility:** Desktop Production Application
 
+---
+
 ## Stage 8 — Adobe Illustrator Workflow
 
-Prepared production information is transferred into the Adobe Illustrator workflow.
+Prepared production information is transferred into the Adobe Illustrator-based production workflow.
 
-Illustrator serves as the production environment for preparing the final files required by the printing process.
+The desktop production environment provides the operational bridge between structured order data and final production preparation.
+
+![Desktop production and Adobe Illustrator workflow](../assets/illustrator-production.png)
+
+Adobe Illustrator serves as the production environment for preparing the files required by the printing process.
 
 The implementation of the Illustrator automation and proprietary transformation logic is intentionally not included in this public repository.
 
@@ -188,6 +232,8 @@ The implementation of the Illustrator automation and proprietary transformation 
 **Process:** Illustrator production workflow  
 **Output:** Prepared production document  
 **Responsibility:** Production Environment
+
+---
 
 ## Stage 9 — Print-Ready Output
 
@@ -197,12 +243,55 @@ The documented workflow supports multiple production output formats:
 - PDF
 - PNG
 
-The required format can then be used within the downstream print-production process.
+![Print-ready production output](../assets/print-ready-output.png)
+
+The resulting files can then be used within the downstream print-production process.
 
 **Input:** Prepared production document  
 **Process:** Production output generation  
 **Output:** AI, PDF, or PNG  
 **Responsibility:** Production Environment
+
+---
+
+## End-to-End Workflow
+
+The complete public workflow can therefore be summarized as:
+
+<pre>
+Product Catalog
+      │
+      ▼
+Customer Design
+      │
+      ▼
+Design Preview
+      │
+      ▼
+Validation & Order Creation
+      │
+      ▼
+Central Data Model
+      │
+      ▼
+Administrative Control
+      │
+      ▼
+Production Transfer
+      │
+      ▼
+Desktop Production
+      │
+      ▼
+Adobe Illustrator
+      │
+      ▼
+Print-Ready Output
+</pre>
+
+The important engineering characteristic is not any individual interface, but the preservation of production context across these environments.
+
+---
 
 ## Workflow Responsibilities
 
@@ -268,12 +357,13 @@ This document intentionally focuses on the observable system workflow.
 - Operational boundaries
 - Production integration points
 - Output formats
+- Public interface examples
 
 ### Excluded
 
 - Production source code
 - Credentials and secrets
-- Client or customer data
+- Customer data
 - Internal infrastructure configuration
 - Proprietary transformation algorithms
 - Illustrator automation implementation
