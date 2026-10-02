@@ -4,7 +4,7 @@ This document describes the public high-level architecture of the **Web-to-Print
 
 The system connects customer-facing product customization with order management and desktop print-production workflows while maintaining structured data across the complete process.
 
-> This document intentionally describes system boundaries and component responsibilities without exposing proprietary source code, credentials, infrastructure configuration, client data, or sensitive production logic.
+> This document intentionally describes system boundaries and component responsibilities without exposing proprietary source code, credentials, infrastructure configuration, customer data, or sensitive production logic.
 
 ## Architecture Goals
 
@@ -276,6 +276,7 @@ This repository documents the architecture at a level suitable for technical eva
 ## Related Documentation
 
 - [Repository Overview](../README.md)
+- [Production Workflow](./workflow.md)
 - [TankDev Case Study](https://tankdev.tech/tr/case-studies/print-production-automation)
 - [System Overview](https://tankdev.tech/tr/systems/print-production-automation)
 
